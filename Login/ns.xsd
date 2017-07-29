@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <schema targetNamespace="urn:Login"
+    xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="urn:Login"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    <complexType name="Input"><!-- Input -->
+          <sequence>
+            <element name="correo" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- Input::correo -->
+            <element name="contrasena" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- Input::contrasena -->
+          </sequence>
+    </complexType>
+    <!-- operation request element -->
+    <element name="iniciar">
+      <complexType>
+          <sequence>
+            <element name="search" type="ns:Input" minOccurs="0" maxOccurs="1"/><!-- ns__iniciar::search -->
+          </sequence>
+      </complexType>
+    </element>
+    <!-- operation response element and type -->
+    <element name="Usuario" type="ns:Usuario"/>
+    <complexType name="Usuario">
+          <sequence>
+            <element name="Id" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__Usuario::Id -->
+            <element name="Nombre" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- ns__Usuario::Nombre -->
+            <element name="Apellido" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- ns__Usuario::Apellido -->
+            <element name="Correo" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- ns__Usuario::Correo -->
+            <element name="Pass" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- ns__Usuario::Pass -->
+          </sequence>
+    </complexType>
+  </schema>
+

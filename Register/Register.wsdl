@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="Register"
+  targetNamespace="urn:Register"
+  xmlns:tns="urn:Register"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:ns="urn:Register"
+  xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:HTTP="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
+  xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/"
+  xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/"
+  xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+<types>
+
+  <schema targetNamespace="urn:Register"
+    xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="urn:Register"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    <complexType name="User"><!-- User -->
+          <sequence>
+            <element name="Nombre" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- User::Nombre -->
+            <element name="Apellido" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- User::Apellido -->
+            <element name="mail" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- User::mail -->
+            <element name="pass" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- User::pass -->
+          </sequence>
+    </complexType>
+    <!-- operation request element -->
+    <element name="registrar">
+      <complexType>
+          <sequence>
+            <element name="insert" type="ns:User" minOccurs="0" maxOccurs="1"/><!-- ns__registrar::insert -->
+          </sequence>
+      </complexType>
+    </element>
+    <!-- operation response element and type -->
+    <element name="registrarResponse" type="ns:registrarResponse"/>
+    <complexType name="registrarResponse">
+          <sequence>
+            <element name="reception" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- ns__registrarResponse::reception -->
+          </sequence>
+    </complexType>
+  </schema>
+
+</types>
+
+<message name="registrar">
+  <part name="Body" element="ns:registrar"/><!-- ns__registrar::ns__registrar -->
+</message>
+
+<message name="registrarResponse">
+  <part name="Body" element="ns:registrarResponse"/><!-- ns__registrar::result_soap -->
+</message>
+
+<portType name="RegisterPortType">
+  <operation name="registrar">
+    <documentation>Service definition of function ns__registrar</documentation>
+    <input message="tns:registrar"/>
+    <output message="tns:registrarResponse"/>
+  </operation>
+</portType>
+
+<binding name="Register" type="tns:RegisterPortType">
+  <SOAP:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="registrar">
+    <SOAP:operation soapAction=""/>
+    <input>
+          <SOAP:body parts="Body" use="literal"/>
+    </input>
+    <output>
+          <SOAP:body parts="Body" use="literal"/>
+    </output>
+  </operation>
+</binding>
+
+<service name="Register">
+  <documentation>gSOAP 2.8.45 generated service definition</documentation>
+  <port name="Register" binding="tns:Register">
+    <SOAP:address location="http://187.223.183.56/cgi-bin/Register.cgi"/>
+  </port>
+</service>
+
+</definitions>

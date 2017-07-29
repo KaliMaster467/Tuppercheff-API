@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="Login"
+  targetNamespace="urn:Login"
+  xmlns:tns="urn:Login"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:ns="urn:Login"
+  xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:HTTP="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
+  xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/"
+  xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/"
+  xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+<types>
+
+  <schema targetNamespace="urn:Login"
+    xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="urn:Login"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    <complexType name="Input"><!-- Input -->
+          <sequence>
+            <element name="correo" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- Input::correo -->
+            <element name="contrasena" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- Input::contrasena -->
+          </sequence>
+    </complexType>
+    <!-- operation request element -->
+    <element name="iniciar">
+      <complexType>
+          <sequence>
+            <element name="search" type="ns:Input" minOccurs="0" maxOccurs="1"/><!-- ns__iniciar::search -->
+          </sequence>
+      </complexType>
+    </element>
+    <!-- operation response element and type -->
+    <element name="Usuario" type="ns:Usuario"/>
+    <complexType name="Usuario">
+          <sequence>
+            <element name="Id" type="xsd:int" minOccurs="1" maxOccurs="1"/><!-- ns__Usuario::Id -->
+            <element name="Nombre" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- ns__Usuario::Nombre -->
+            <element name="Apellido" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- ns__Usuario::Apellido -->
+            <element name="Correo" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- ns__Usuario::Correo -->
+            <element name="Pass" type="xsd:string" minOccurs="0" maxOccurs="1"/><!-- ns__Usuario::Pass -->
+          </sequence>
+    </complexType>
+  </schema>
+
+</types>
+
+<message name="iniciar">
+  <part name="Body" element="ns:iniciar"/><!-- ns__iniciar::ns__iniciar -->
+</message>
+
+<message name="Usuario">
+  <part name="Body" element="ns:Usuario"/><!-- ns__iniciar::result_soap -->
+</message>
+
+<portType name="LoginPortType">
+  <operation name="iniciar">
+    <documentation>Service definition of function ns__iniciar</documentation>
+    <input message="tns:iniciar"/>
+    <output message="tns:Usuario"/>
+  </operation>
+</portType>
+
+<binding name="Login" type="tns:LoginPortType">
+  <SOAP:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="iniciar">
+    <SOAP:operation soapAction=""/>
+    <input>
+          <SOAP:body parts="Body" use="literal"/>
+    </input>
+    <output>
+          <SOAP:body parts="Body" use="literal"/>
+    </output>
+  </operation>
+</binding>
+
+<service name="Login">
+  <documentation>gSOAP 2.8.45 generated service definition</documentation>
+  <port name="Login" binding="tns:Login">
+    <SOAP:address location="http://localhost/cgi-bin/Login.cgi"/>
+  </port>
+</service>
+
+</definitions>
